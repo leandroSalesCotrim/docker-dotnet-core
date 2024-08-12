@@ -7,6 +7,13 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Debug') {
+            steps {
+                script {
+                    sh 'git rev-parse --abbrev-ref HEAD'
+                }
+            }
+        }
 
         stage('Build com ansible') {
             steps {
