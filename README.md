@@ -1,4 +1,4 @@
-# Docker : run a sample .NET Core console application 
+# Docker : run a sample .NET Core console application  
 
 An example app that runs a .NET Core program that prints a hello message.
 
