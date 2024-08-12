@@ -10,8 +10,13 @@ pipeline {
         stage('Debug') {
             steps {
                 script {
+                    teste = "${GIT_BRANCH.split("/")[1]}"
+                    def branch_nem = scm.branches[0].name
+                    echo 'Pulling... ' + env.GIT_BRANCH
                     def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                     echo "Branch Name: ${branchName}"
+                    echo "teste Name: ${teste}"
+                    echo "teste Name: ${branch_nem}"
                     env.BRANCH_NAME = branchName // Define a variável de ambiente para usar em outras etapas
                 }
             }
