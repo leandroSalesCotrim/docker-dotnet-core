@@ -18,7 +18,7 @@ pipeline {
                 script {
                     sh '${HOME}/.dotnet/tools/dotnet-sonarscanner begin /k:"project-key" /d:sonar.host.url=$SONARQUBE_URL /d:sonar.login=$SONARQUBE_TOKEN'
                     sh 'dotnet build ./Hello' // Ajuste o caminho do projeto se necessário
-                    sh 'dotnet sonarscanner end /d:sonar.login=$SONARQUBE_TOKEN'
+                    sh '${HOME}/.dotnet/tools/dotnet-sonarscanner end /d:sonar.login=$SONARQUBE_TOKEN'
                 }
             }
         }
