@@ -13,12 +13,14 @@ pipeline {
             }
         }
         
-        stage('Debug') {
+        stage('SonarQube Analysis') {
             steps {
                 script {
-                    def name = "${env.GIT_BRANCH.split('/')[1]}"
-                    echo "Branch Name: ${name}"
-                    env.BRANCH_NAME = name // Define a variável de ambiente para usar em outras etapas
+                    sh '''
+                    dotnet sonarscanner begin /k:"your-project-key" /d:sonar.host.url=$SONARQUBE_URL /d:sonar.login=$SONARQUBE_TOKEN
+                    dotnet build YourSolution.sln
+                    dotnet sonarscanner end /d:sonar.login=$SONARQUBE_TOKEN
+                    '''
                 }
             }
         }
@@ -27,22 +29,6 @@ pipeline {
             steps {
                 script {
                     sh 'sudo ansible-playbook -i /var/ansible/inventory /var/ansible/build.yml --private-key ~/.ssh/id_rsa'
-                }
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            when {
-                expression { return env.BRANCH_NAME == 'main' } // Executa análise somente para a branch main
-            }
-            steps {
-                script {
-                    // Executar análise com SonarQube
-                    sh """
-                        mvn sonar:sonar \
-                        -Dsonar.host.url=${SONARQUBE_URL} \
-                        -Dsonar.login=${SONARQUBE_TOKEN}
-                    """
                 }
             }
         }
