@@ -1,26 +1,48 @@
 pipeline {
     agent any
 
+    environment {
+        SONARQUBE_URL = 'http://sonarqube:9000' // URL do SonarQube
+        SONARQUBE_TOKEN = credentials('sonarqube-token') // ID da credencial criada
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+        
         stage('Debug') {
             steps {
                 script {
-                    name = "${GIT_BRANCH.split("/")[1]}"
-                    echo "teste Name: ${name}"
+                    def name = "${env.GIT_BRANCH.split('/')[1]}"
+                    echo "Branch Name: ${name}"
                     env.BRANCH_NAME = name // Define a variável de ambiente para usar em outras etapas
                 }
             }
         }
-
+        
         stage('Build com ansible') {
             steps {
                 script {
                     sh 'sudo ansible-playbook -i /var/ansible/inventory /var/ansible/build.yml --private-key ~/.ssh/id_rsa'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            when {
+                expression { return env.BRANCH_NAME == 'main' } // Executa análise somente para a branch main
+            }
+            steps {
+                script {
+                    // Executar análise com SonarQube
+                    sh """
+                        mvn sonar:sonar \
+                        -Dsonar.host.url=${SONARQUBE_URL} \
+                        -Dsonar.login=${SONARQUBE_TOKEN}
+                    """
                 }
             }
         }
