@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "1BWPBcwRf25VcaScN12Nr5Ty5y2yBL0rl7loyPR0WOrwDnMWg26nshnJQmAiMsgd4KsHoz1o7wyg4ysUVjp1GQ==",
+  "dgSpecHash": "Nz3QgSSFM6WIUSFqaIdQxybiQ5nqn0hnWJZ/9XjLLElOyPlmuc//CSrG6TWwtBAaPqHePKbwxpq6+H1hDmZ4ww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\trinity\\Desktop\\docker-samples\\docker-dotnet-core\\Hello\\Hello.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/leandrocotrim/estudos/docker-dotnet-core/Hello/Hello.csproj",
+  "expectedPackageFiles": [
+    "/home/leandrocotrim/.nuget/packages/microsoft.netcore.app.ref/6.0.31/microsoft.netcore.app.ref.6.0.31.nupkg.sha512",
+    "/home/leandrocotrim/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.31/microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512",
+    "/home/leandrocotrim/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.31/microsoft.netcore.app.host.linux-x64.6.0.31.nupkg.sha512"
+  ],
   "logs": []
 }

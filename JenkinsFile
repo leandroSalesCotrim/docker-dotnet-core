@@ -16,8 +16,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh 'dotnet tool install --global dotnet-sonarscanner' // Instale o SonarQube Scanner se ainda não estiver instalado
-                    sh 'dotnet sonarscanner begin /k:"project-key" /d:sonar.host.url=$SONARQUBE_URL /d:sonar.login=$SONARQUBE_TOKEN'
+                    sh '${HOME}/.dotnet/tools/dotnet-sonarscanner begin /k:"project-key" /d:sonar.host.url=$SONARQUBE_URL /d:sonar.login=$SONARQUBE_TOKEN'
                     sh 'dotnet build ./Hello' // Ajuste o caminho do projeto se necessário
                     sh 'dotnet sonarscanner end /d:sonar.login=$SONARQUBE_TOKEN'
                 }
