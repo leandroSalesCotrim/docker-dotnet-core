@@ -16,7 +16,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh '${HOME}/.dotnet/tools/dotnet-sonarscanner begin /k:"Build dotnet Hello world" /d:sonar.host.url=$SONARQUBE_URL /d:sonar.login=$SONARQUBE_TOKEN'
+                    sh '${HOME}/.dotnet/tools/dotnet-sonarscanner begin /k:"build-dotnet-Hello-world" /d:sonar.host.url=$SONARQUBE_URL /d:sonar.login=$SONARQUBE_TOKEN'
                     sh 'dotnet build ./Hello' 
                     sh '${HOME}/.dotnet/tools/dotnet-sonarscanner end /d:sonar.login=$SONARQUBE_TOKEN'
                 }
