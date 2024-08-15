@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy com ansible') {
             when {
-                expression { return env.BRANCH_NAME == 'main' }
+                expression { return env.GIT_BRANCH.split('/')[1] == 'main' }
             }
             steps {
                 script {
